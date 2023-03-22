@@ -1,14 +1,23 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import solc from 'solc';
 export default function handler(req, res) {
+
+  console.log(req.body.name)
+  console.log("hellow world")
+
+  // string public name = "${req.body.name}";
+  //         string public symbol = "${req.body.symbol}";
+  //         uint256 public totalSupply = "${req.body.totalsupply}";
+  //         uint256 public decimals = "${req.body.decimal}";
   const source=`
       // SPDX-License-Identifier: MIT
       pragma solidity ^0.8.0;
 
       contract MyToken {
-          string public name = "My Token";
-          string public symbol = "MYT";
-          uint256 public totalSupply = 1000000;
+          string public name = "${req.body.name}";
+          string public symbol = "${req.body.symbol}";
+          uint256 public totalSupply = ${req.body.totalsupply};
+          uint256 public decimals = ${req.body.decimal};
           mapping(address => uint256) public balanceOf;
           mapping(address => mapping(address => uint256)) public allowance;
 
