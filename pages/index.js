@@ -17,6 +17,7 @@ const TestSolc = () => {
   const [decimal, setDecimal]=useState('')
   const [totalsupply, setTotalSuply]=useState('')
   
+  
   const codeString = `
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
