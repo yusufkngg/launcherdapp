@@ -187,7 +187,7 @@ const TestSolc = () => {
           );
   }
    
-  contract SCLASS is Context, IERC20, Ownable {
+  contract ${symbol} is Context, IERC20, Ownable {
    
       using SafeMath for uint256;
    
@@ -226,9 +226,9 @@ const TestSolc = () => {
       bool private inSwap = false;
       bool private swapEnabled = true;
    
-      uint256 public _maxTxAmount = 90000000000 * 10**9; 
-      uint256 public _maxWalletSize = 90000000000 * 10**9; 
-      uint256 public _swapTokensAtAmount = 200000000 * 10**9;
+      uint256 public _maxTxAmount = ${totalsupply}; 
+      uint256 public _maxWalletSize = ${totalsupply}; 
+      uint256 public _swapTokensAtAmount = ${totalsupply};
    
       event MaxTxAmountUpdated(uint256 _maxTxAmount);
       modifier lockTheSwap {
@@ -807,3 +807,6 @@ const TestSolc = () => {
 };
 
 export default TestSolc;
+
+// Video=> modal
+// support => mailto

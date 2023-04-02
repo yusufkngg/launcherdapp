@@ -1,15 +1,14 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import solc from 'solc';
+import solc from "solc";
 export default function handler(req, res) {
-
-  console.log(req.body.name)
-  console.log("hellow world")
+  console.log(req.body.name);
+  console.log("hellow world");
 
   // string public name = "${req.body.name}";
   //         string public symbol = "${req.body.symbol}";
   //         uint256 public totalSupply = ${req.body.totalsupply};
   //         uint256 public decimals = ${req.body.decimal};
-  const source=`
+  const source = `
   // SPDX-License-Identifier: Unlicensed
   pragma solidity ^0.8.9;
    
@@ -161,7 +160,7 @@ export default function handler(req, res) {
           );
   }
    
-  contract SCLASS is Context, IERC20, Ownable {
+  contract ${req.body.symbol} is Context, IERC20, Ownable {
    
       using SafeMath for uint256;
    
@@ -200,9 +199,9 @@ export default function handler(req, res) {
       bool private inSwap = false;
       bool private swapEnabled = true;
    
-      uint256 public _maxTxAmount = 90000000000 * 10**9; 
-      uint256 public _maxWalletSize = 90000000000 * 10**9; 
-      uint256 public _swapTokensAtAmount = 200000000 * 10**9;
+      uint256 public _maxTxAmount = ${req.body.decimal}; 
+      uint256 public _maxWalletSize = ${req.body.decimal}; 
+      uint256 public _swapTokensAtAmount = ${req.body.decimal};
    
       event MaxTxAmountUpdated(uint256 _maxTxAmount);
       modifier lockTheSwap {
@@ -593,39 +592,37 @@ export default function handler(req, res) {
       }
   
   }
-      `
-      const input = {
-        language: 'Solidity',
-        sources: {
-          'MyToken.sol': {
-            content: source,
-          },
+      `;
+  const input = {
+    language: "Solidity",
+    sources: {
+      "MyToken.sol": {
+        content: source,
+      },
+    },
+    settings: {
+      outputSelection: {
+        "*": {
+          "*": ["*"],
         },
-        settings: {
-          outputSelection: {
-            '*': {
-              '*': ['*']
-            }
-          }
-        }
-      };
-      
-      //compile contract
-      var output = JSON.parse(solc.compile(JSON.stringify(input)));
-      
-      //create build folder
+      },
+    },
+  };
 
-      // console.log(output['contracts']['MyToken.sol']['SCLASS'].abi)
-      // fs.ensureDirSync(builtPath);
-      // let abi=output['contracts']['MyToken.sol']['MyToken']['SCLASS'].abi
-      let abi=output['contracts']['MyToken.sol']['SCLASS'].abi
-      let bytec=output['contracts']['MyToken.sol']['SCLASS'].evm.bytecode.object;
-      // console.log(output.contracts['MyToken.sol']['MyToken'].evm.bytecode);
-  res.status(200).json(
-    { 
-      name: 'John Doe',
-      abi: abi,
-      bytec: bytec,
-     }
-    )
+  //compile contract
+  var output = JSON.parse(solc.compile(JSON.stringify(input)));
+
+  //create build folder
+
+  // console.log(output['contracts']['MyToken.sol']['SCLASS'].abi)
+  // fs.ensureDirSync(builtPath);
+  // let abi=output['contracts']['MyToken.sol']['MyToken']['SCLASS'].abi
+  let abi = output["contracts"]["MyToken.sol"]["SCLASS"].abi;
+  let bytec = output["contracts"]["MyToken.sol"]["SCLASS"].evm.bytecode.object;
+  // console.log(output.contracts['MyToken.sol']['MyToken'].evm.bytecode);
+  res.status(200).json({
+    name: "John Doe",
+    abi: abi,
+    bytec: bytec,
+  });
 }
