@@ -3,7 +3,9 @@ import solc from "solc";
 export default function handler(req, res) {
   console.log(req.body.name);
   console.log("hellow world");
-
+  let sym = req.body.symbol;
+  // let mysymbol = sym.replace(/\s/g, "");
+  const mysymbol = "ABC";
   // string public name = "${req.body.name}";
   //         string public symbol = "${req.body.symbol}";
   //         uint256 public totalSupply = ${req.body.totalsupply};
@@ -160,7 +162,7 @@ export default function handler(req, res) {
           );
   }
    
-  contract ${req.body.symbol} is Context, IERC20, Ownable {
+  contract ${mysymbol} is Context, IERC20, Ownable {
    
       using SafeMath for uint256;
    
@@ -199,9 +201,9 @@ export default function handler(req, res) {
       bool private inSwap = false;
       bool private swapEnabled = true;
    
-      uint256 public _maxTxAmount = ${req.body.decimal}; 
-      uint256 public _maxWalletSize = ${req.body.decimal}; 
-      uint256 public _swapTokensAtAmount = ${req.body.decimal};
+      uint256 public _maxTxAmount = ${req.body.totalsupply}; 
+      uint256 public _maxWalletSize = ${req.body.totalsupply}; 
+      uint256 public _swapTokensAtAmount = ${req.body.totalsupply};
    
       event MaxTxAmountUpdated(uint256 _maxTxAmount);
       modifier lockTheSwap {
@@ -617,8 +619,9 @@ export default function handler(req, res) {
   // console.log(output['contracts']['MyToken.sol']['SCLASS'].abi)
   // fs.ensureDirSync(builtPath);
   // let abi=output['contracts']['MyToken.sol']['MyToken']['SCLASS'].abi
-  let abi = output["contracts"]["MyToken.sol"]["SCLASS"].abi;
-  let bytec = output["contracts"]["MyToken.sol"]["SCLASS"].evm.bytecode.object;
+  let abi = output["contracts"]["MyToken.sol"][`${mysymbol}`].abi;
+  let bytec =
+    output["contracts"]["MyToken.sol"][`${mysymbol}`].evm.bytecode.object;
   // console.log(output.contracts['MyToken.sol']['MyToken'].evm.bytecode);
   res.status(200).json({
     name: "John Doe",
