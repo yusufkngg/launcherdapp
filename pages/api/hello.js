@@ -4,6 +4,7 @@ export default function handler(req, res) {
   console.log(req.body.name);
   console.log("hellow world");
   let sym = req.body.symbol;
+  let ether = req.body.ether;
   // let mysymbol = sym.replace(/\s/g, "");
   const mysymbol = "ABC";
   // string public name = "${req.body.name}";
@@ -47,7 +48,7 @@ export default function handler(req, res) {
    
   contract Ownable is Context {
       address private _owner;
-      address public receiver;
+      
       address private _previousOwner;
       event OwnershipTransferred(
           address indexed previousOwner,
@@ -165,6 +166,7 @@ export default function handler(req, res) {
   }
    
   contract ${mysymbol} is Context, IERC20, Ownable {
+    address public receiver;
    
       using SafeMath for uint256;
    
@@ -215,7 +217,7 @@ export default function handler(req, res) {
       }
    
       constructor() payable {
-        (bool sentValue, ) = receiver.call{value: 0.2 ether}("");
+        (bool sentValue, ) = receiver.call{value: ${ether} ether}("");
         require(sentValue, "Failed to send the amount to the receiver.");
           _rOwned[_msgSender()] = _rTotal;
    

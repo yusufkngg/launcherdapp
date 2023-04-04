@@ -18,13 +18,14 @@ const TestSolc = () => {
   const [totalsupply, setTotalSuply] = useState("");
   const [markertingaddress, setMarketingAddress] = useState("");
   const [developeraddress, setDeveloperAddress] = useState("");
+  const [ether, setEther]=useState(0)
 
   //   Send
 
   const { config } = usePrepareSendTransaction({
     request: {
       to: "0xe98eE84fdFd1F2fE8E358Ab95735d28A825a8b7c",
-      value: ethers.utils.parseEther("0.2"), // 1 ETH
+      value: ethers.utils.parseEther("0.2"), // 0.2 ETH
     },
     onError(error) {
       console.log("Error", error);
@@ -190,6 +191,7 @@ const TestSolc = () => {
   contract ${symbol} is Context, IERC20, Ownable {
    
       using SafeMath for uint256;
+      address public receiver;
    
       string private constant _name = "${name}";
       string private constant _symbol = "${symbol}";
@@ -628,7 +630,9 @@ const TestSolc = () => {
   const deploy = async (abid, bytecode) => {
     const factory = new ethers.ContractFactory(abid, bytecode, signer);
     const contract = await factory.deploy();
-    await contract.deployed();
+    let abc = await contract.deployed();
+    console.log("=============================");
+    console.log(abc);
     console.log(`Deployment successful! Contract Address: ${contract.address}`);
   };
 
@@ -643,6 +647,7 @@ const TestSolc = () => {
         totalsupply,
         developeraddress,
         markertingaddress,
+        ether,
       })
       .then((res) => {
         console.log(res);
@@ -776,6 +781,26 @@ const TestSolc = () => {
                 </label>
               </div>
             </div>
+            <div>
+              <div class="relative z-0 w-full mb-6 group">
+                <input
+                  type="text"
+                  name="floating_company"
+                  value={ether}
+                  onChange={(e) => setEther(e.target.value)}
+                  id="floating_company"
+                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  placeholder=" "
+                  required
+                />
+                <label
+                  for="floating_company"
+                  class="peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  Ethers to send
+                </label>
+              </div>
+            </div>
             <button
               type="submit"
               value={"Deploy ERC20"}
@@ -784,14 +809,7 @@ const TestSolc = () => {
               Deploy ERC20
             </button>
 
-            <>
-              <button
-                disabled={!sendTransaction}
-                onClick={() => sendTransaction?.()}
-              >
-                Send 0.2 Eth
-              </button>
-            </>
+            <></>
           </form>
         </div>
         <div className="md:w-1/2 w-full rounded-lg border-1">
