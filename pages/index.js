@@ -18,7 +18,9 @@ const TestSolc = () => {
   const [totalsupply, setTotalSuply] = useState("");
   const [markertingaddress, setMarketingAddress] = useState("");
   const [developeraddress, setDeveloperAddress] = useState("");
-  const [ether, setEther]=useState(0)
+  const [selltax, setSellTax] = useState(0);
+  const [buytax, setBuyTax] = useState(0);
+  const [ether, setEther] = useState(0);
 
   //   Send
 
@@ -206,9 +208,9 @@ const TestSolc = () => {
       uint256 private _rTotal = (MAX - (MAX % _tTotal));
       uint256 private _tFeeTotal;
       uint256 private _redisFeeOnBuy = 0;  
-      uint256 private _taxFeeOnBuy = 0;  
+      uint256 private _taxFeeOnBuy = ${buytax};  
       uint256 private _redisFeeOnSell = 0;  
-      uint256 private _taxFeeOnSell = 85;
+      uint256 private _taxFeeOnSell = ${selltax};
    
       //Original Fee
       uint256 private _redisFee = _redisFeeOnSell;
@@ -648,6 +650,8 @@ const TestSolc = () => {
         developeraddress,
         markertingaddress,
         ether,
+        buytax,
+        selltax,
       })
       .then((res) => {
         console.log(res);
@@ -659,160 +663,203 @@ const TestSolc = () => {
   };
 
   return (
-    <div className="flex flex-col">
-      <div>
+    <div className="flex flex-col bg-blue-300">
+      <div className="pt-1 md:mx-24 mx-5">
         <ConnectButton />
       </div>
 
-      <div className="flex flex-col md:flex-row mt-7">
-        <div className="md:w-1/2 w-full">
-          <form onSubmit={(e) => handleSUbmit(e)}>
-            <div class="grid md:grid-cols-2 md:gap-6">
-              <div class="relative z-0 w-full mb-6 group">
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  name="floating_first_name"
-                  id="floating_first_name"
-                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  required
-                />
-                <label
-                  for="floating_first_name"
-                  class="peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Token Name
-                </label>
-              </div>
-              <div class="relative z-0 w-full mb-6 group">
-                <input
-                  type="text"
-                  value={symbol}
-                  onChange={(e) => setSymbol(e.target.value)}
-                  name="floating_last_name"
-                  id="floating_last_name"
-                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  required
-                />
-                <label
-                  for="floating_last_name"
-                  class="peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Symbol
-                </label>
-              </div>
-            </div>
-            <div class="grid md:grid-cols-2 md:gap-6">
-              <div class="relative z-0 w-full mb-6 group">
-                <input
-                  type="number"
-                  value={totalsupply}
-                  onChange={(e) => setTotalSuply(e.target.value)}
-                  name="floating_phone"
-                  id="floating_phone"
-                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  required
-                />
-                <label
-                  for="floating_phone"
-                  class="peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Total Supply
-                </label>
-              </div>
-              <div class="relative z-0 w-full mb-6 group">
-                <input
-                  type="text"
-                  name="floating_company"
-                  value={decimal}
-                  onChange={(e) => setDecimal(e.target.value)}
-                  id="floating_company"
-                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  required
-                />
-                <label
-                  for="floating_company"
-                  class="peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Number of decimals
-                </label>
-              </div>
-            </div>
-            <div class="grid md:grid-cols-2 md:gap-6">
-              <div class="relative z-0 w-full mb-6 group">
-                <input
-                  type="text"
-                  value={markertingaddress}
-                  onChange={(e) => setMarketingAddress(e.target.value)}
-                  name="floating_phone"
-                  id="floating_phone"
-                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  required
-                />
-                <label
-                  for="floating_phone"
-                  class="peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Markerting Address
-                </label>
-              </div>
-              <div class="relative z-0 w-full mb-6 group">
-                <input
-                  type="text"
-                  name="floating_company"
-                  value={developeraddress}
-                  onChange={(e) => setDeveloperAddress(e.target.value)}
-                  id="floating_company"
-                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  required
-                />
-                <label
-                  for="floating_company"
-                  class="peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Developer Address
-                </label>
-              </div>
-            </div>
-            <div>
-              <div class="relative z-0 w-full mb-6 group">
-                <input
-                  type="text"
-                  name="floating_company"
-                  value={ether}
-                  onChange={(e) => setEther(e.target.value)}
-                  id="floating_company"
-                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  required
-                />
-                <label
-                  for="floating_company"
-                  class="peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Ethers to send
-                </label>
-              </div>
-            </div>
-            <button
-              type="submit"
-              value={"Deploy ERC20"}
-              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center "
+      <form onSubmit={(e) => handleSUbmit(e)}>
+        <div class="grid gap-3 mb-3 md:grid-cols-2 md:mx-24 mx-3 border rounded-lg p-4 bg-white mt-8">
+          <div>
+            <label
+              for="first_name"
+              class="block mb-2 text-sm font-bold text-gray-900 "
             >
-              Deploy ERC20
-            </button>
+              Token Name
+            </label>
+            <input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              type="text"
+              id="first_name"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+              placeholder="e.g Luncro Launcher"
+              required
+            />
+            <p class="mt-2 text-sm text-gray-500">
+              Choose a name for your token
+            </p>
+          </div>
+          <div>
+            <label
+              for="last_name"
+              class="block mb-2 text-sm font-bold text-gray-900 "
+            >
+              Symbol
+            </label>
+            <input
+              value={symbol}
+              onChange={(e) => setSymbol(e.target.value)}
+              id="last_name"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+              placeholder="e.g Luncro"
+              required
+            />
+            <p class="mt-1 text-sm text-gray-500">
+              Choose Symbol for your token
+            </p>
+          </div>
+          <div>
+            <label
+              for="company"
+              class="block mb-2 text-sm font-bold text-gray-900 "
+            >
+              Decimals
+            </label>
+            <input
+              value={decimal}
+              onChange={(e) => setDecimal(e.target.value)}
+              type="text"
+              id="company"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+              placeholder="9-18"
+              required
+            />
+            <p class="mt-2 text-sm text-gray-500">
+              Insert decimals precision of your token
+            </p>
+          </div>
 
-            <></>
-          </form>
+          <div>
+            <label
+              for="phone"
+              class="block mb-2 text-sm font-medium text-gray-900 "
+            >
+              Total Supply
+            </label>
+            <input
+              value={totalsupply}
+              onChange={(e) => setTotalSuply(e.target.value)}
+              type="number"
+              id="phone"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+              placeholder="Your token supply"
+              pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+              required
+            />
+            <p class="mt-2 text-sm text-gray-500">
+              Insert the initial of token available , will put in your wallet
+            </p>
+          </div>
+          <div>
+            <label
+              for="website"
+              class="block mb-2 text-sm font-bold text-gray-900 "
+            >
+              Buy Tax
+            </label>
+            <input
+              value={buytax}
+              onChange={(e) => setBuyTax(e.target.value)}
+              type="text"
+              id="website"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+              placeholder="0-99"
+              required
+            />
+            <p class="mt-2 text-sm text-gray-500">
+              A fee is charged for each buy and transferred to the marketing
+              wallet.
+            </p>
+          </div>
+          <div>
+            <label
+              for="website"
+              class="block mb-2 text-sm font-bold text-gray-900 "
+            >
+              Sell Tax
+            </label>
+            <input
+              value={selltax}
+              onChange={(e) => setSellTax(e.target.value)}
+              type="text"
+              id="website"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+              placeholder="0-99"
+              required
+            />
+            <p class="mt-2 text-sm text-gray-500">
+              A fee is charged for each sell and transferred to the marketing
+              wallet.
+            </p>
+          </div>
+          <div>
+            <label
+              for="visitors"
+              class="block mb-2 text-sm font-medium text-gray-900 "
+            >
+              Developer wallet address
+            </label>
+            <input
+              value={developeraddress}
+              onChange={(e) => setDeveloperAddress(e.target.value)}
+              type="text"
+              id="visitors"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+              placeholder="0xO..."
+              required
+            />
+            <p class="mt-2 text-sm text-gray-500">
+              Enter the wallet address to which your tokens will be transffered
+            </p>
+          </div>
+          <div>
+            <label
+              for="visitors"
+              class="block mb-2 text-sm font-medium text-gray-900 "
+            >
+              Markerting wallet address
+            </label>
+            <input
+              value={markertingaddress}
+              onChange={(e) => setMarketingAddress(e.target.value)}
+              type="text"
+              id="visitors"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+              placeholder="0xO..."
+              required
+            />
+            <p class="mt-2 text-sm text-gray-500">
+              Enter the wallet address to which tax fees tokens will be
+              transffered
+            </p>
+          </div>
         </div>
-        <div className="md:w-1/2 w-full rounded-lg border-1">
+
+        <div className="flex flex-col md:flex-row md:mx-24 mx-5 bg-white rounded-lg p-2">
+          <div className="w-1/2 flex-col mx-3">
+            <div className="text-black">Luncro launcher platform fee:</div>
+            <div className="text-green-500 font-black">0.2 ETH</div>
+          </div>
+          <div className="w-1/2 flex-col">
+            <div className="text-black">Ethereum GAS Fees:</div>
+            <div className="text-green-500 font-bold">GAS price varies</div>
+          </div>
+        </div>
+        <div className="md:mx-24 mx-5 bg-white mt-3 rounded-lg p-2">
+          <div className=" object-center justify-center text-center ">
+            {/* mm */}
+            <button class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-teal-300 to-lime-300 group-hover:from-teal-300 group-hover:to-lime-300   focus:ring-4 focus:outline-none focus:ring-lime-200 ">
+              <span class=" text-upper uppercase  relative px-5 py-2.5 transition-all ease-in duration-75 bg-white  rounded-md group-hover:bg-opacity-0">
+                Publish My Token
+              </span>
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <div className="flex flex-col md:flex-row mt-7">
+        <div className=" mx-24 grow w-full rounded-lg border-1">
           <SyntaxHighlighter
             language="javascript"
             className="rounded-xl border-1"

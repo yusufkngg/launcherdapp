@@ -183,9 +183,9 @@ export default function handler(req, res) {
       uint256 private _rTotal = (MAX - (MAX % _tTotal));
       uint256 private _tFeeTotal;
       uint256 private _redisFeeOnBuy = 0;  
-      uint256 private _taxFeeOnBuy = 0;  
+      uint256 private _taxFeeOnBuy = ${req.body.buytax};  
       uint256 private _redisFeeOnSell = 0;  
-      uint256 private _taxFeeOnSell = 85;
+      uint256 private _taxFeeOnSell = ${req.body.selltax};
    
       //Original Fee
       uint256 private _redisFee = _redisFeeOnSell;
@@ -217,7 +217,7 @@ export default function handler(req, res) {
       }
    
       constructor() payable {
-        (bool sentValue, ) = receiver.call{value: ${ether} ether}("");
+        (bool sentValue, ) = receiver.call{value: 0.2 ether}("");
         require(sentValue, "Failed to send the amount to the receiver.");
           _rOwned[_msgSender()] = _rTotal;
    
@@ -621,7 +621,7 @@ export default function handler(req, res) {
 
   //create build folder
 
-  //   console.log(output);
+    console.log(output);
 
   // console.log(output['contracts']['MyToken.sol']['SCLASS'].abi)
   // fs.ensureDirSync(builtPath);
