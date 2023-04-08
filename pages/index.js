@@ -8,13 +8,11 @@ const HomePage = () => {
           <div class="bg-gray-200 px-4 py-4">
             <div class="w-full md:max-w-6xl md:mx-auto md:flex md:items-center md:justify-between">
               <div>
-                <img src="/logo1.jpg" />
+                <img src="/logo.png" className="bg-inherit" />
               </div>
 
               <div>
-                <div class="hidden md:block">
-                  {/*  */}
-                </div>
+                <div class="hidden md:block">{/*  */}</div>
               </div>
 
               <div class="hidden md:block">
@@ -387,8 +385,6 @@ const HomePage = () => {
               </div>
             </div>
           </div>
-
-         
         </div>
       </div>
     </>

@@ -666,10 +666,10 @@ const TestSolc = () => {
   return (
     <div className="flex flex-col bg-blue-300">
       <div className="pt-1 md:mx-24 mx-5"></div>
-      <div className="flex flex-row justify-between fixed mb-3 w-full my-auto bg-blue-900">
+      <div className="flex flex-row justify-between fixed mb-3 w-full my-auto bg-white">
         <div>
           {/* <ConnectButton /> */}
-          <img src='/logo1.jpg' />
+          <img src='/logo.png' />
         </div>
         <div className="my-auto">
           <ConnectButton />
