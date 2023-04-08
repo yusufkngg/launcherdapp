@@ -5,13 +5,18 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import axios from "axios";
 import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
-import { useSigner } from "wagmi";
-import { usePrepareSendTransaction, useSendTransaction } from "wagmi";
+import { useSigner, useAccount } from "wagmi";
+import {
+  usePrepareSendTransaction,
+  useSendTransaction,
+  useBalance,
+} from "wagmi";
 import Image from "next/image";
 
 const path = require("path");
 
 const TestSolc = () => {
+  const { address, isConnecting, isDisconnected } = useAccount();
   const { data: signer, isError, isLoading } = useSigner();
   const [name, setName] = useState("");
   const [symbol, setSymbol] = useState("");
@@ -22,6 +27,19 @@ const TestSolc = () => {
   const [selltax, setSellTax] = useState(0);
   const [buytax, setBuyTax] = useState(0);
   const [ether, setEther] = useState(0);
+  const [balance, setBalance] = useState(0);
+  // const balance = useBalance({
+  //   address: address,
+  //   formatUnits: "gwei",
+  // });
+
+  const balances = useBalance({
+    address: address,
+    onSettled(data, error) {
+      setBalance(data.formatted);
+      console.log("Settled", { data, error });
+    },
+  });
 
   //   Send
 
@@ -631,8 +649,11 @@ const TestSolc = () => {
   useEffect(() => {}, []);
 
   const deploy = async (abid, bytecode) => {
-    const factory = new ethers.ContractFactory(abid, bytecode, signer);
+    console.log("=============================!!!!!!!!");
+    const factory = await new ethers.ContractFactory(abid, bytecode, signer);
+    console.log("=============================");
     const contract = await factory.deploy();
+    console.log(contract.data.code);
     let abc = await contract.deployed();
     console.log("=============================");
     console.log(abc);
@@ -669,7 +690,7 @@ const TestSolc = () => {
       <div className="flex flex-row justify-between fixed mb-3 w-full my-auto bg-white">
         <div>
           {/* <ConnectButton /> */}
-          <img src='/logo.png' />
+          <img src="/logo.png" />
         </div>
         <div className="my-auto">
           <ConnectButton />
@@ -857,11 +878,24 @@ const TestSolc = () => {
         <div className="md:mx-24 mx-5 bg-white mt-3 rounded-lg p-2">
           <div className=" object-center justify-center text-center ">
             {/* mm */}
-            <button class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-teal-300 to-lime-300 group-hover:from-teal-300 group-hover:to-lime-300   focus:ring-4 focus:outline-none focus:ring-lime-200 ">
-              <span class=" text-upper uppercase  relative px-5 py-2.5 transition-all ease-in duration-75 bg-white  rounded-md group-hover:bg-opacity-0">
-                Publish My Token
-              </span>
-            </button>
+
+            {balance > 0.3 ? (
+              <>
+                <button class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-teal-300 to-lime-300 group-hover:from-teal-300 group-hover:to-lime-300   focus:ring-4 focus:outline-none focus:ring-lime-200 ">
+                  <span class=" text-upper uppercase  relative px-5 py-2.5 transition-all ease-in duration-75 bg-white  rounded-md group-hover:bg-opacity-0">
+                    Publish My Token
+                  </span>
+                </button>
+              </>
+            ) : (
+              <button
+                type="button"
+                class="px-8 py-3 text-white bg-blue-600 rounded focus:outline-none disabled:opacity-25"
+                disabled
+              >
+                You have insufficient balance
+              </button>
+            )}
           </div>
         </div>
       </form>

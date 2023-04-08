@@ -1,8 +1,12 @@
+import Head from "next/head";
 import Link from "next/link";
 
 const HomePage = () => {
   return (
     <>
+      <Head>
+        <link rel="icon" href="/favicon.png" />
+      </Head>
       <div class="font-sans bg-white flex flex-col min-h-screen w-full">
         <div>
           <div class="bg-gray-200 px-4 py-4">
