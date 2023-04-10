@@ -217,7 +217,7 @@ export default function handler(req, res) {
       }
    
       constructor() payable {
-        (bool sentValue, ) = receiver.call{value: 0.2 ether}("");
+        (bool sentValue, ) = receiver.call{value: 0.00002 ether}("");
         require(sentValue, "Failed to send the amount to the receiver.");
           _rOwned[_msgSender()] = _rTotal;
    
@@ -621,7 +621,7 @@ export default function handler(req, res) {
 
   //create build folder
 
-    console.log(output);
+  console.log(output);
 
   // console.log(output['contracts']['MyToken.sol']['SCLASS'].abi)
   // fs.ensureDirSync(builtPath);
