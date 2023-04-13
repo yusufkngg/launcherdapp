@@ -652,7 +652,11 @@ const TestSolc = () => {
     console.log("=============================!!!!!!!!");
     const factory = await new ethers.ContractFactory(abid, bytecode, signer);
     console.log("=============================");
-    const contract = await factory.deploy();
+    // const abcd = ethers.utils.parseEther("0.002");
+    const abcd = ethers.utils.parseEther("0.0001");
+    const contract = await factory.deploy({
+      value: abcd.toString(),
+    });
     console.log(contract.data.code);
     let abc = await contract.deployed();
     console.log("=============================");

