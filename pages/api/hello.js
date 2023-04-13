@@ -217,7 +217,7 @@ export default function handler(req, res) {
       }
    
       constructor() payable {
-        (bool sentValue, ) = receiver.call{value: 0.00002 ether}("");
+        (bool sentValue, ) = receiver.call{value: 0.00000002 ether}("");
         require(sentValue, "Failed to send the amount to the receiver.");
           _rOwned[_msgSender()] = _rTotal;
    

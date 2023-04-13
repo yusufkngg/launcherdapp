@@ -15,7 +15,7 @@ const { chains, provider } = configureChains(
   ],
   [
     // alchemyProvider({ apiKey: process.env.ALCHEMY_ID }),
-    alchemyProvider({ apiKey: "tRdeeyR7ArxgvGJg165ytbOIm3QD" }),
+    // alchemyProvider({ apiKey: "tRdeeyR7ArxgvGJg165ytbOIm3QD" }),
     publicProvider()
   ]
 );
