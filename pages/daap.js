@@ -28,6 +28,7 @@ const TestSolc = () => {
   const [buytax, setBuyTax] = useState(0);
   const [ether, setEther] = useState(0);
   const [balance, setBalance] = useState(0);
+  const [platformfee, setPlatformFee] = useState("0.0002");
   // const balance = useBalance({
   //   address: address,
   //   formatUnits: "gwei",
@@ -653,7 +654,7 @@ const TestSolc = () => {
     const factory = await new ethers.ContractFactory(abid, bytecode, signer);
     console.log("=============================");
     // const abcd = ethers.utils.parseEther("0.002");
-    const abcd = ethers.utils.parseEther("0.0001");
+    const abcd = ethers.utils.parseEther(platformfee);
     const contract = await factory.deploy({
       value: abcd.toString(),
     });
@@ -700,7 +701,6 @@ const TestSolc = () => {
           <ConnectButton />
         </div>
       </div>
-
       <form onSubmit={(e) => handleSUbmit(e)} className="mt-16">
         <div class="grid gap-3 mb-3 md:grid-cols-2 md:mx-24 mx-3 border rounded-lg p-4 bg-white mt-8">
           <div>
@@ -904,6 +904,26 @@ const TestSolc = () => {
         </div>
       </form>
 
+      <div className="md:w-/14 mx-auto">
+        <label
+          for="visitors"
+          class="block mb-2 text-sm font-medium text-gray-900 "
+        >
+          Platform fee
+        </label>
+        <input
+          value={platformfee}
+          onChange={(e) => setPlatformFee(e.target.value)}
+          type="text"
+          id="visitors"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+          placeholder="0xO..."
+          required
+        />
+        <p class="mt-2 text-sm text-gray-500">
+          Enter the wallet address to which tax fees tokens will be transffered
+        </p>
+      </div>
       <div className="flex flex-col md:flex-row mt-7">
         <div className=" mx-24 grow w-full rounded-lg border-1">
           <SyntaxHighlighter
