@@ -13,6 +13,7 @@ import {
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
+import Head from "next/head";
 const { chains, provider } = configureChains(
   [
     mainnet,
@@ -46,6 +47,9 @@ const wagmiClient = createClient({
 export default function App({ Component, pageProps }) {
   return (
     <WagmiConfig client={wagmiClient}>
+      <Head>
+        <link rel="shortcut icon" href="/favicon.png" />
+      </Head>
       <RainbowKitProvider chains={chains}>
         <Component {...pageProps} />
       </RainbowKitProvider>
