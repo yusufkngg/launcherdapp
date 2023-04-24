@@ -698,10 +698,10 @@ const TestSolc = () => {
       style={{ backgroundImage: bg }}
     >
       <div className="pt-1 md:mx-24 mx-5"></div>
-      <div className="flex flex-row justify-between fixed mb-3 w-full my-auto bg-white">
+      <div className="flex flex-row justify-between fixed mb-3 w-full my-auto">
         <div>
           {/* <ConnectButton /> */}
-          <img src="/logo.png" />
+          <img src="/logo.jpeg" />
         </div>
         <div className="my-auto">
           <ConnectButton />
