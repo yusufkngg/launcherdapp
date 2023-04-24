@@ -694,8 +694,8 @@ const TestSolc = () => {
 
   return (
     <div
-      className="flex flex-col bg-blue-300 min-h-full"
-      style={{ backgroundImage: bg }}
+      className="flex flex-col min-h-screen"
+      style={{ backgroundImage: `url(${bg.src})` }}
     >
       <div className="pt-1 md:mx-24 mx-5"></div>
       <div className="flex flex-row justify-between fixed mb-3 w-full my-auto">
