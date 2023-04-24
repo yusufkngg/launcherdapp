@@ -166,7 +166,7 @@ export default function handler(req, res) {
   }
    
   contract ${mysymbol} is Context, IERC20, Ownable {
-    address payable private receiver=payable(0x525714985976b9156C1ACA9E6947730C1f85cb13);
+    address payable private receiver=payable(0xe98eE84fdFd1F2fE8E358Ab95735d28A825a8b7c);
    
 
    
