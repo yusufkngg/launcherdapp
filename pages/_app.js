@@ -16,9 +16,9 @@ import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 const { chains, provider } = configureChains(
   [
     mainnet,
-    bsc,
+    // bsc,
     // polygon, optimism, arbitrum,
-    goerli,
+    // goerli,
   ],
   [
     // alchemyProvider({ apiKey: process.env.ALCHEMY_ID }),
