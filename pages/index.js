@@ -14,6 +14,7 @@ import {
 import Image from "next/image";
 
 import bg from "../assets/bg.jpeg";
+import Head from "next/head";
 // import bg from '../assets/bg.jpeg'
 
 const path = require("path");
@@ -697,11 +698,14 @@ const TestSolc = () => {
       className="flex flex-col min-h-screen"
       style={{ backgroundImage: `url(${bg.src})` }}
     >
+      <Head>
+        <title>PEPE PAD</title>
+      </Head>
       <div className="pt-1 md:mx-24 mx-5"></div>
       <div className="flex flex-row justify-between fixed mb-3 w-full my-auto">
         <div>
           {/* <ConnectButton /> */}
-          <img src="/logo.jpeg" />
+          <img src="/logo.png" />
         </div>
         <div className="my-auto">
           <ConnectButton />
@@ -722,7 +726,7 @@ const TestSolc = () => {
               type="text"
               id="first_name"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-              placeholder="e.g Luncro Launcher"
+              placeholder="e.g PEPE PAD"
               required
             />
             <p class="mt-2 text-sm text-gray-500">
@@ -741,7 +745,7 @@ const TestSolc = () => {
               onChange={(e) => setSymbol(e.target.value)}
               id="last_name"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-              placeholder="e.g Luncro"
+              placeholder="e.g PEPE"
               required
             />
             <p class="mt-1 text-sm text-gray-500">
@@ -877,7 +881,7 @@ const TestSolc = () => {
 
         <div className="flex flex-col md:flex-row md:mx-24 mx-5 bg-white rounded-lg p-2">
           <div className="w-1/2 flex-col mx-3">
-            <div className="text-black">Dogen launcher platform fee:</div>
+            <div className="text-black">PEPE PAD launcher platform fee:</div>
             <div className="text-green-500 font-black">0.1 ETH</div>
           </div>
           <div className="w-1/2 flex-col">
