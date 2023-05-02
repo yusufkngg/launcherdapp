@@ -13,7 +13,7 @@ import {
 } from "wagmi";
 import Image from "next/image";
 
-import bg from "../assets/bg.jpeg";
+import bg from "../assets/bg.jpg";
 import Head from "next/head";
 // import bg from '../assets/bg.jpeg'
 
