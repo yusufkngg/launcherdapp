@@ -13,7 +13,7 @@ import {
 } from "wagmi";
 import Image from "next/image";
 
-import bg from "../assets/bg.jpg";
+import bg from "../assets/bg1.jpeg";
 import Head from "next/head";
 // import bg from '../assets/bg.jpeg'
 
@@ -695,8 +695,9 @@ const TestSolc = () => {
 
   return (
     <div
-      className="flex flex-col min-h-screen"
+      className="flex flex-col min-h-screenh w-full"
       style={{ backgroundImage: `url(${bg.src})` }}
+      
     >
       <Head>
         <title>PEPE PAD</title>
